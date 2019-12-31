@@ -31,7 +31,7 @@ def send_email(subject, msg):
 
 
 root = Tk()
-root.title("Calculating square root")
+root.title("EMAIL BOT")
 root.geometry('200x50')
 
 Label(root, text="Enter Email: ").grid(column=0, row=0)
