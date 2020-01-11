@@ -1,4 +1,4 @@
-rom tkinter import *
+from tkinter import *
 from tkinter import messagebox
 import smtplib
 from functools import partial
