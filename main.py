@@ -6,9 +6,6 @@ import re
 
 subject = "Test"
 msg = "This is a test message!"
-
-EMAIL_ADDRESS = "Your Email Address"
-PASSWORD = "Your Password"
 emailaddr = []
 
 root = Tk()
@@ -31,7 +28,7 @@ def txt():
 
 def getmail():
     e = e1.get()
-    if validate(e)== True:
+    if validate(e) == True:
         emailaddr.append(e)
         e1.delete('0', END)
         txt()
@@ -41,6 +38,8 @@ def getmail():
 
 def send_email(subject, msg):
     try:
+        EMAIL_ADDRESS = email.get()
+        PASSWORD = key.get()
         server = smtplib.SMTP('smtp.gmail.com:587')
         server.ehlo()
         server.starttls()
@@ -49,20 +48,32 @@ def send_email(subject, msg):
             message = 'Subject: {}\n\n{}'.format(subject, msg)
             server.sendmail(EMAIL_ADDRESS, e, message)
         server.quit()
+        messagebox.showinfo("Success", "Emails Sent Successfully")
         print("Success: Email sent!")
     except:
-        print("Message failed")
+        messagebox.showerror("Error", "Failed To Send Email")
 
 
-root.title("Calculating square root")
-root.geometry('200x50')
+root.title("Email BOT")
+root.geometry('200x200')
 
-Label(root, text="Enter Email: ").grid(column=0, row=0)
+
+Label(root, text="Username:").grid(column=0, row=0)
+Label(root, text="Password:").grid(column=0, row=1)
+Label(root, text="Enter Email:").grid(column=0, row=3)
+
+email = Entry(root)
+email.grid(column=2, row=0)
+
+key = Entry(root, show="*")
+key.grid(column=2, row=1)
+
 e1 = Entry(root)
-e1.grid(column=1, row=0)
+e1.grid(column=2, row=3)
 
-Button(root, command=getmail, text="Submit").grid(column=0, row=1)
-Button(root, command=partial(send_email, subject, msg), text="Send").grid(column=1, row=1)
+
+Button(root, command=getmail, text="Submit").grid(column=0, row=5)
+Button(root, command=partial(send_email, subject, msg), text="Send").grid(column=2, row=5)
 root.mainloop()
 
 print(emailaddr)
